@@ -1,0 +1,12 @@
+server:
+  port: 8080
+dubbo:
+  application:
+    name: web_back
+  registry:
+    address: zookeeper://192.168.227.138:2181
+  consumer:
+    check: false
+    #配置重试 - 容错机制
+    retries: 1
+    timeout: 5000

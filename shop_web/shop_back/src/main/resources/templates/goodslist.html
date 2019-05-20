@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base th:href="${#request.getContextPath() + '/'}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+    <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
+    <!-- Reset Stylesheet -->
+    <link rel="stylesheet" href="resources/css/reset.css" type="text/css"
+          media="screen" />
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="resources/css/style.css" type="text/css"
+          media="screen" />
+    <link rel="stylesheet" href="resources/css/invalid.css" type="text/css"
+          media="screen" />
+
+    <!--                       Javascripts                       -->
+    <!-- jQuery -->
+    <script type="text/javascript"
+            src="resources/scripts/jquery-1.3.2.min.js"></script>
+    <!-- jQuery Configuration -->
+    <script type="text/javascript"
+            src="resources/scripts/simpla.jquery.configuration.js"></script>
+</head>
+<body>
+<div id="main-content">
+    <div class="content-box">
+        <!-- End .content-box-header -->
+        <div class="content-box-content">
+            <div class="tab-content default-tab" id="tab1">
+                <table>
+                    <thead>
+                    <tr>
+                        <th><input class="check-all" type="checkbox" /></th>
+                        <th>商品id</th>
+                        <th>商品名称</th>
+                        <th>商品图片</th>
+                        <th>商品价格</th>
+                        <th>商品描述</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="good :${goods}">
+                        <td><input type="checkbox" /></td>
+                        <td th:text="${good.id}">Lorem ipsum dolor</td>
+                        <td th:text="${good.gname}"><a href="#" title="title">Sit amet</a></td>
+                        <td th:text="${good.gimages}">Consectetur adipiscing</td>
+                        <td th:text="${good.gprice}">Donec tortor diam</td>
+                        <td th:text="${good.ginfo}"></td>
+                    </tr>
+
+                    </tbody>
+
+                    <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="bulk-actions align-left">
+                                <a class="mybutton" href="/back/goodsadd">添加商品</a>
+                            </div>
+
+                            <!-- 分页
+                            <div class="pagination">
+                                <a href="#" title="First Page">&laquo; First</a><a href="#"
+                                                                                   title="Previous Page">&laquo; Previous</a> <a href="#"
+                                                                                                                                 class="number" title="1">1</a> <a href="#" class="number"
+                                                                                                                                                                   title="2">2</a> <a href="#" class="number current" title="3">3</a>
+                                <a href="#" class="number" title="4">4</a> <a href="#"
+                                                                              title="Next Page">Next &raquo;</a><a href="#"
+                                                                                                                   title="Last Page">Last &raquo;</a>
+                            </div> --><!-- End .pagination -->
+                            <div class="clear"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!-- End .content-box-content -->
+    </div>
+</div>
+<!-- End #main-content -->
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base th:href="${#request.getContextPath() + '/'}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+    <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
+    <!-- Reset Stylesheet -->
+    <link rel="stylesheet" href="resources/css/reset.css" type="text/css"
+          media="screen" />
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="resources/css/style.css" type="text/css"
+          media="screen" />
+    <link rel="stylesheet" href="resources/css/invalid.css" type="text/css"
+          media="screen" />
+
+    <!--                       Javascripts                       -->
+    <!-- jQuery -->
+    <script type="text/javascript"
+            src="resources/scripts/jquery-1.8.3.min.js"></script>
+    <!-- jQuery Configuration -->
+    <script type="text/javascript"
+            src="resources/scripts/simpla.jquery.configuration.js"></script>
+
+    <!-- 依赖webuploader插件 -->
+    <script type="text/javascript"
+            src="resources/widget/webuploader/webuploader.min.js"></script>
+    <link rel="stylesheet" href="resources/widget/webuploader/webuploader.css" type="text/css"
+          media="screen" />
+
+    <script>
+        $(function(){
+            //初始化webuploader
+            var uploader = WebUploader.create({
+                // 选完文件后，是否自动上传。
+                auto: true,
+                // swf文件路径
+                swf: '/resources/widget/webuploader/Uploader.swf',
+                // 文件接收服务端。
+                server: '/res/uploadImg',
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#filePicker',
+                // 只允许选择图片文件。
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                }
+            });
+
+
+            // 当有文件添加进来的时候
+            uploader.on('fileQueued', function(file) {
+                // 创建缩略图
+                uploader.makeThumb(file, function( error, src ) {
+
+                    //创建了缩略图
+                    if(src){
+                        //缩略图创建成功
+                        var html = "<img style='width: 100px; height: 100px; margin-right: 10px;' src='" + src + "'/>";
+                        $("#imgs_div").append(html);
+                    } else {
+                        //缩略图创建失败
+                        alert("图片缩略图创建失败！");
+                    }
+
+                }, 100, 100);
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+<div id="main-content">
+    <div class="content-box">
+        <div class="content-box-content">
+            <div class="tab-content default-tab" id="tab2">
+                <form action="#" method="post" enctype="multipart/form-data">
+                    <fieldset>
+                        <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+                        <p>
+                            <label>商品名称</label> <input
+                                class="text-input medium-input datepicker" type="text"
+                                name="gname" />
+                        </p>
+                        <p>
+                            <label>商品图片</label>
+                           <!-- <input
+                                class="text-input medium-input datepicker" type="file"
+                                name="gimage" />-->
+
+                            <div id="imgs_div" style="padding: 10px;width: 600px; height: 200px; border: 1px solid #ff0000; margin-bottom: 10px;"></div>
+
+                            <div id="filePicker">选择图片</div>
+                        </p>
+                        <p>
+                            <label>商品价格</label> <input
+                                class="text-input medium-input datepicker" type="text"
+                                name="gprice" />
+                        </p>
+                        <p>
+                            <label>商品库存</label> <input
+                                class="text-input medium-input datepicker" type="text"
+                                name="gsave" />
+                        </p>
+
+                        <p>
+                            <label>商品描述</label>
+                            <textarea class="text-input textarea wysiwyg" id="textarea"
+                                      name="ginfo" cols="79" rows="15"></textarea>
+                        </p>
+                        <p>
+                            <input class="mybutton" type="submit" value="Submit" />
+                        </p>
+                    </fieldset>
+                    <div class="clear"></div>
+                    <!-- End .clear -->
+                </form>
+            </div>
+            <!-- End #tab2 -->
+        </div>
+        <!-- End .content-box-content -->
+    </div>
+</div>
+<!-- End #main-content -->
+</body>
+</html>
