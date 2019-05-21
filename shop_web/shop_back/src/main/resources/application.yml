@@ -10,3 +10,18 @@ dubbo:
     #配置重试 - 容错机制
     retries: 1
     timeout: 5000
+#配置fastdfs
+fdfs:
+  tracker-list:
+    - 192.168.227.138:22122
+  connect-timeout: 10000
+  so-timeout: 10000
+  thumb-image:
+    height: 100
+    width: 100
+  pool:
+    jmx-enabled: false
+
+#图片服务器的地址
+img:
+  server: http://192.168.227.138

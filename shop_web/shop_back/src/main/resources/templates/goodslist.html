@@ -45,7 +45,7 @@
                         <td><input type="checkbox" /></td>
                         <td th:text="${good.id}">Lorem ipsum dolor</td>
                         <td th:text="${good.gname}"><a href="#" title="title">Sit amet</a></td>
-                        <td th:text="${good.gimages}">Consectetur adipiscing</td>
+                        <td><img style="width: 120px; height: 90px" th:src="|${imgPath}/${#strings.listSplit(good.gimages, '|')[0]}|"/></td>
                         <td th:text="${good.gprice}">Donec tortor diam</td>
                         <td th:text="${good.ginfo}"></td>
                     </tr>

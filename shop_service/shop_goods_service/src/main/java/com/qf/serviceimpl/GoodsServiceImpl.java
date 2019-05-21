@@ -24,4 +24,9 @@ public class GoodsServiceImpl implements IGoodsService {
         List<Goods> goods = goodsMapper.selectList(null);
         return goods;
     }
+
+    @Override
+    public int addGoods(Goods goods) {
+        return goodsMapper.insert(goods);
+    }
 }
