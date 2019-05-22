@@ -1,2 +1,9 @@
 server:
   port: 8082
+dubbo:
+  application:
+    name: web_search
+  registry:
+    address: zookeeper://192.168.227.138:2181
+  consumer:
+    check: false
