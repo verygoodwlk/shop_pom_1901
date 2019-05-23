@@ -52,8 +52,8 @@ public class SearchServiceImpl implements ISearchService {
         solrQuery.addHighlightField("gname");
 
         //高亮的折叠
-        solrQuery.setHighlightFragsize(5);//这个是设置高亮折叠后每次显示的长度
-        solrQuery.setHighlightSnippets(3);//这个是设置高亮折叠的次数
+//        solrQuery.setHighlightFragsize(5);//这个是设置高亮折叠后每次显示的长度
+//        solrQuery.setHighlightSnippets(3);//这个是设置高亮折叠的次数
 
         //设置分页
 //        solrQuery.setStart((page - 1) * pageSize);//limit ?,x
@@ -96,7 +96,9 @@ public class SearchServiceImpl implements ISearchService {
                     Map<String, List<String>> stringListMap = highlighting.get(goods.getId() + "");
                     //获得高亮的字段
                     List<String> gname = stringListMap.get("gname");
-                    goods.setGname(gname.get(0));
+                    if(gname != null){
+                        goods.setGname(gname.get(0));
+                    }
                 }
 
                 goodsList.add(goods);

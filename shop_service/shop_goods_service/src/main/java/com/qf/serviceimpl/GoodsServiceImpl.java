@@ -6,6 +6,7 @@ import com.qf.dao.GoodsMapper;
 import com.qf.entity.Goods;
 import com.qf.service.IGoodsService;
 import com.qf.service.ISearchService;
+import com.qf.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -36,6 +37,13 @@ public class GoodsServiceImpl implements IGoodsService {
         goodsMapper.insert(goods);
         //同步商品到索引库中
         searchService.addGoods(goods);
+        //通过http通知详情工程生成静态页面
+        HttpUtil.sendGet("http://localhost:8083/item/createHtml?gid=" + goods.getId());
         return 1;
+    }
+
+    @Override
+    public Goods queryById(Integer gid) {
+        return goodsMapper.selectById(gid);
     }
 }
