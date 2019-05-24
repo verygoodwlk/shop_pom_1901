@@ -8,3 +8,10 @@ dubbo:
   consumer:
     check: false
     timeout: 60000
+spring:
+  rabbitmq:
+    host: 192.168.227.138
+    username: admin
+    password: admin
+    port: 5672
+    virtual-host: /admin

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.qf</groupId>
-    <artifactId>shop_search_service</artifactId>
+    <artifactId>rabbitmq_springboot_consumer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shop_search_service</name>
+    <name>rabbitmq_springboot_consumer</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -21,30 +21,13 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-solr</artifactId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.qf</groupId>
-            <artifactId>shop_service_api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>0.2.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
     </dependencies>
 

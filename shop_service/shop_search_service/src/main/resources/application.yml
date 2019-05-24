@@ -2,6 +2,12 @@ spring:
   data:
     solr:
       host: http://192.168.227.138:8080/solr
+  rabbitmq:
+    host: 192.168.227.138
+    username: admin
+    password: admin
+    port: 5672
+    virtual-host: /admin
 dubbo:
   application:
     name: service_search

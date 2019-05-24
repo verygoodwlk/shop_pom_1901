@@ -10,6 +10,12 @@ spring:
       max-active: 100
       min-idle: 10
       min-evictable-idle-time-millis: 60000
+  rabbitmq:
+    host: 192.168.227.138
+    username: admin
+    password: admin
+    port: 5672
+    virtual-host: /admin
 dubbo:
   application:
     name: service_goods
