@@ -9,6 +9,7 @@
         <module>shop_commons</module>
         <module>shop_service</module>
         <module>shop_web</module>
+        <module>rabbitmq_demo</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

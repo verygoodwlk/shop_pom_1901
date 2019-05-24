@@ -1,0 +1,10 @@
+server:
+  port: 8083
+dubbo:
+  application:
+    name: web_item
+  registry:
+    address: zookeeper://192.168.227.138:2181
+  consumer:
+    check: false
+    timeout: 60000

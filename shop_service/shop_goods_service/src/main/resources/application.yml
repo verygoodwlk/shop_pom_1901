@@ -18,3 +18,5 @@ dubbo:
   protocol:
     name: dubbo
     port: -1
+  consumer:
+    check: false
