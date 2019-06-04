@@ -1,0 +1,20 @@
+server:
+  port: 8084
+spring:
+  thymeleaf:
+    cache: false
+  mail:
+    #发送方的smtp服务器的地址
+    host: smtp.sina.cn
+    username: verygoodwlk@sina.cn
+    password: ken123456
+  redis:
+    host: 192.168.227.138
+dubbo:
+  application:
+    name: user_web
+  registry:
+    address: zookeeper://192.168.227.138:2181
+  consumer:
+    check: false
+    timeout: 10000
