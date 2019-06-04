@@ -23,9 +23,7 @@ public class UserServiceImpl implements IUserService {
     public int register(User user) {
 
         //判断用户名是否已经注册
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("username", user.getUsername());
-        User u = userMapper.selectOne(queryWrapper);
+        User u = this.queryByUserName(user.getUsername());
         if(u != null){
             //用户名已经被注册
             return -1;
@@ -48,6 +46,25 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User login(User user) {
-        return null;
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("username", user.getUsername());
+        queryWrapper.eq("password", MD5Util.content2MD5(user.getPassword()));
+        return userMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public User queryByUserName(String username) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("username", username);
+        User u = userMapper.selectOne(queryWrapper);
+        return u;
+    }
+
+    @Override
+    public int updatePassword(String username, String password) {
+        User user = this.queryByUserName(username);
+        user.setPassword(MD5Util.content2MD5(password));
+
+        return userMapper.updateById(user);
     }
 }

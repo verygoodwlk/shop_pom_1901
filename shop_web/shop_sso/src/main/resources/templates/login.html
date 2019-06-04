@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/login-register.css" />
 
+
+
 </head>
 <body>
 <!--顶部信息start-->
@@ -74,14 +76,15 @@
             <h3>用户登录</h3>
         </div>
         <div class="form-bd">
-            <form action="" method="POST">
+            <span th:text="${error}"></span>
+            <form action="/sso/login" method="POST">
                 <dl>
                     <dt>用户名</dt>
-                    <dd><input type="text" name="user" class="text" /></dd>
+                    <dd><input type="text" name="username" class="text" /></dd>
                 </dl>
                 <dl>
                     <dt>密&nbsp;&nbsp;&nbsp;&nbsp;码</dt>
-                    <dd><input type="password" name="pwd" class="text"/></dd>
+                    <dd><input type="password" name="password" class="text"/></dd>
                 </dl>
                 <dl>
                     <dt>验证码</dt>
@@ -89,7 +92,7 @@
                 </dl>
                 <dl>
                     <dt>&nbsp;</dt>
-                    <dd><input type="submit" value="登  录" class="submit"/> <a href="" class="forget">忘记密码?</a></dd>
+                    <dd><input type="submit" value="登  录" class="submit"/> <a href="/sso/forget" class="forget">忘记密码?</a></dd>
                 </dl>
             </form>
             <dl>
