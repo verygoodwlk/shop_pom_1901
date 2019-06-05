@@ -12,10 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
@@ -145,8 +142,13 @@ public class SSOController {
     @RequestMapping("/islogin")
 //    @CrossOrigin
     public String isLogin(
-            @CookieValue(name="login_token", required=false) String loginToken,
+            @CookieValue(name="login_token", required=false)
+                    String loginToken,
+            @RequestParam(value = "loginToken", required = false)
+                    String loginToken2,
             String callback){
+
+        loginToken = loginToken != null ? loginToken : loginToken2;
 
         //开始认证当前用户是否登录
         String result = null;
@@ -340,5 +342,4 @@ public class SSOController {
         map.put("code", -2);
         return map;
     }
-
 }
