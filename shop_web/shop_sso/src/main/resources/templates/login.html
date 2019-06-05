@@ -78,6 +78,7 @@
         <div class="form-bd">
             <span th:text="${error}"></span>
             <form action="/sso/login" method="POST">
+                <input type="hidden" name="returnUrl" th:value="${#request.getParameter('returnUrl')}"/>
                 <dl>
                     <dt>用户名</dt>
                     <dd><input type="text" name="username" class="text" /></dd>

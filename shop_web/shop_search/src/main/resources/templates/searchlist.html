@@ -11,6 +11,8 @@
     <script type="text/javascript" src="js/jquery.js" ></script>
     <script type="text/javascript" src="js/topNav.js" ></script>
     <script type="text/javascript" src="js/shop_list.js" ></script>
+
+    <script type="text/javascript" src="http://localhost:8084/js/login.js"></script>
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
@@ -20,7 +22,7 @@
         <div class="shop_hd_topNav_all">
             <!-- Header TopNav Left -->
             <div class="shop_hd_topNav_all_left">
-                <p>您好，欢迎来到<b><a href="/">ShoopNC商城</a></b>[<a>登录</a>][<a>注册</a>]</p>
+                <p id="pid"></p>
             </div>
             <!-- Header TopNav Left End -->
 
@@ -104,10 +106,10 @@
             </ul>
             <div class="clear"></div>
             <div class="search_form">
-                <form method="post" action="index.php">
+                <form method="get" action="index.php">
                     <div class="search_formstyle">
                         <input type="text" class="search_form_text" name="search_content" value="搜索其实很简单！" />
-                        <input type="submit" class="search_form_sub" name="secrch_submit" value="" title="搜索" />
+                        <input type="submit" class="search_form_sub" value="" title="搜索" />
                     </div>
                 </form>
             </div>

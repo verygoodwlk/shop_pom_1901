@@ -1,6 +1,7 @@
 package com.qf.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.qf.entity.User;
 import com.qf.service.IUserService;
 import com.qf.util.Base64Util;
@@ -11,6 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -97,7 +99,11 @@ public class SSOController {
      * @return
      */
     @RequestMapping("/login")
-    public String login(User user, Model mode, HttpServletResponse response){
+    public String login(User user, String returnUrl, Model mode, HttpServletResponse response){
+
+        if(returnUrl == null){
+            returnUrl = "http://localhost:8081";
+        }
 
         //调用服务进行登录认证
         User loginUser = userService.login(user);
@@ -118,11 +124,61 @@ public class SSOController {
         cookie.setMaxAge(1 * 60 * 60 * 24 * 7);//最大超时时间
         cookie.setPath("/");//所有请求都会携带该cookie
 //        cookie.setDomain(".sb.com");//所有二级域名共享cookie， cookie不能一级域名共享
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
+//        cookie.setHttpOnly(true);
+//        cookie.setSecure(true);
         response.addCookie(cookie);
 
-        return "redirect:http://localhost:8081";
+        return "redirect:" + returnUrl;
+    }
+
+
+    /**
+     * 认证当前客户端是否登录
+     *
+     * cookie - login_token - uuid
+     *
+     * uuid - redis - user
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/islogin")
+//    @CrossOrigin
+    public String isLogin(
+            @CookieValue(name="login_token", required=false) String loginToken,
+            String callback){
+
+        //开始认证当前用户是否登录
+        String result = null;
+        if(loginToken != null){
+            //说明当前有cookie
+            User user = (User) redisTemplate.opsForValue().get(loginToken);
+            if(user != null){
+                //说明认证成功
+                result = JSON.toJSONString(user);
+            }
+        }
+
+        return callback != null ? callback + "(" + result + ")" : result;
+    }
+
+    @RequestMapping("/logout")
+    public String logout(
+            @CookieValue(name="login_token", required=false) String loginToken,
+            HttpServletResponse response){
+
+        if(loginToken != null){
+            //通过cookie 删除redis
+            redisTemplate.delete(loginToken);
+
+            //删除cookie
+            Cookie cookie = new Cookie("login_token", "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+        }
+
+        return "redirect:/sso/tologin";
     }
 
     /**
