@@ -8,6 +8,7 @@ import com.qf.service.IGoodsService;
 import com.qf.service.ISearchService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
+    @Cacheable(cacheNames = "goods", key = "'good' + #gid")
     public Goods queryById(Integer gid) {
         return goodsMapper.selectById(gid);
     }

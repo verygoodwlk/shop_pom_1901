@@ -111,7 +111,7 @@ public class LoginAOP {
             //以此循环所有参数对象
             for (int i = 0; i < args.length; i++) {
                 //如果一个参数的类型是User类型
-                if(args[i].getClass() == User.class){
+                if(args[i] != null && args[i].getClass() == User.class){
                     //修改这个位置的参数
                     args[i] = user;
                 }

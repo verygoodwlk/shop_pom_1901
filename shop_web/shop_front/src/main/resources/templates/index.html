@@ -15,6 +15,37 @@
 
     <script type="text/javascript" src="http://localhost:8084/js/login.js"></script>
 
+    <script>
+        $(function(){
+            $.ajax({
+                url: "http://localhost:8085/cart/list",
+                success: function(data){
+                    if(data != null && data.length > 0){
+                        $("#cnumber").html(data.length);
+                        var html = "<ul style='width: 300px; height: 400px'>";
+
+                        for(var i = 0 ; i < data.length; i++){
+                            html += "<li style='width: 300px; height: 50px'>";
+                            var gimages = data[i].goods.gimages;
+                            var imgs = gimages.split("|");
+                            html += "<img style='width: 60px; height: 40px' src='http://192.168.227.138/" + imgs[0] + "'/> ";
+                            html += data[i].goods.gname + " ";
+                            html += data[i].gprice  + " * " + data[i].gnumber;
+                            html += "</li>";
+                        }
+
+                        html += "</ul>";
+
+                        $("#cartlist").html(html);
+                    }
+
+                },
+                dataType: "jsonp",
+                jsonpCallback: "cartList"
+            });
+        });
+    </script>
+
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
@@ -59,7 +90,7 @@
 
                     <li>
                         <div class="topNav_menu">
-                            <a href="#" class="topNavHover">购物车<b>0</b>种商品<i></i></a>
+                            <a href="http://localhost:8085/cart/showlist" class="topNavHover">购物车<b id="cnumber">0</b>种商品<i></i></a>
                             <div class="topNav_menu_bd" style="display:none;">
                                 <!--
                                 <ul>
@@ -67,7 +98,7 @@
                                   <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
                                 </ul>
                                 -->
-                                <p>还没有商品，赶快去挑选！</p>
+                                <p style="width: 300px; height: 400px" id="cartlist">还没有商品，赶快去挑选！</p>
                             </div>
                         </div>
                     </li>

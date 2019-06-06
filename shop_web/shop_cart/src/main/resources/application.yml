@@ -3,3 +3,13 @@ server:
 spring:
   thymeleaf:
     cache: false
+  redis:
+    host: 192.168.227.138
+dubbo:
+  application:
+    name: cart_web
+  registry:
+    address: zookeeper://192.168.227.138:2181
+  consumer:
+    check: false
+    timeout: 10000

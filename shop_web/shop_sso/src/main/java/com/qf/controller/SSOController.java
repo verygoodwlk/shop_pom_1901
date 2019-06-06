@@ -3,6 +3,7 @@ package com.qf.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.qf.entity.User;
+import com.qf.service.ICartService;
 import com.qf.service.IUserService;
 import com.qf.util.Base64Util;
 import com.qf.util.CodeUtil;
@@ -40,6 +41,9 @@ public class SSOController {
 
     @Reference
     private IUserService userService;
+
+    @Reference
+    private ICartService cartService;
 
     @RequestMapping("/tologin")
     public String toLogin(){
@@ -96,7 +100,12 @@ public class SSOController {
      * @return
      */
     @RequestMapping("/login")
-    public String login(User user, String returnUrl, Model mode, HttpServletResponse response){
+    public String login(User user,
+                        String returnUrl,
+                        Model mode,
+                        HttpServletResponse response,
+                        @CookieValue(name = "cart_token", required = false)
+                        String cartToken){
 
         if(returnUrl == null){
             returnUrl = "http://localhost:8081";
@@ -124,6 +133,17 @@ public class SSOController {
 //        cookie.setHttpOnly(true);
 //        cookie.setSecure(true);
         response.addCookie(cookie);
+
+
+        //将临时购物车的信息同步到永久购物车中
+        int result = cartService.syncCarts(cartToken, loginUser);
+        if(result > 0){
+            //删除cookie
+            Cookie cookie2 = new Cookie("cart_token", cartToken);
+            cookie2.setMaxAge(0);//最大超时时间
+            cookie2.setPath("/");
+            response.addCookie(cookie2);
+        }
 
         return "redirect:" + returnUrl;
     }
