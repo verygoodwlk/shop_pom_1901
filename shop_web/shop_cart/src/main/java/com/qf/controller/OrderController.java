@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.qf.aop.IsLogin;
 import com.qf.entity.Address;
 import com.qf.entity.Cart;
+import com.qf.entity.Orders;
 import com.qf.entity.User;
 import com.qf.service.IAddressService;
 import com.qf.service.ICartService;
@@ -73,5 +74,20 @@ public class OrderController {
         //添加订单信息
         int result = orderService.insertOrder(user, aid);
         return "succ";
+    }
+
+    /**
+     * 查询用户的订单列表
+     * @return
+     */
+    @IsLogin(mustLogin = true)
+    @RequestMapping("/list")
+    public String list(User user, Model model){
+
+        //调用服务查询当前用户的订单列表
+        List<Orders> orders = orderService.queryAllOrders(user.getId());
+        model.addAttribute("orders", orders);
+
+        return "orderlist";
     }
 }

@@ -102,6 +102,9 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public int deleteCartsByUid(Integer uid) {
-        return 0;
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("uid", uid);
+        return cartMapper.delete(queryWrapper);
     }
 }

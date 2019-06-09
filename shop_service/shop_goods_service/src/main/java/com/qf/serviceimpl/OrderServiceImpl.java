@@ -2,6 +2,7 @@ package com.qf.serviceimpl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qf.dao.OrderDetilsMapper;
 import com.qf.dao.OrderMapper;
 import com.qf.entity.*;
@@ -63,7 +64,8 @@ public class OrderServiceImpl implements IOrderService {
                 address.getPhone(),
                 new Date(),
                 allprice,
-                0
+                0,
+                null
         );
 
         //添加订单
@@ -86,14 +88,30 @@ public class OrderServiceImpl implements IOrderService {
         }
 
         //清空购物车
-
+        cartService.deleteCartsByUid(user.getId());
 
         return 1;
     }
 
     @Override
     public List<Orders> queryAllOrders(Integer uid) {
-        return null;
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("uid", uid);
+        queryWrapper.orderByDesc("createtime");
+        List<Orders> orders = orderMapper.selectList(queryWrapper);
+
+        //根据订单列表查询订单详情
+        for (Orders order : orders) {
+
+            QueryWrapper queryWrapper2 = new QueryWrapper();
+            queryWrapper2.eq("oid", order.getId());
+            List<OrderDetils> list = orderDetilsMapper.selectList(queryWrapper2);
+
+            order.setOrderDetils(list);
+        }
+
+        return orders;
     }
 
     @Override
