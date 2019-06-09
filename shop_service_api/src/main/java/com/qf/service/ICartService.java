@@ -17,4 +17,6 @@ public interface ICartService {
     List<Cart> getCartList(String cartToken, User user);
 
     int syncCarts(String cartToken, User user);
+
+    int deleteCartsByUid(Integer uid);
 }

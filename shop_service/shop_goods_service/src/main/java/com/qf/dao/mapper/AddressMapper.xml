@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.dao.AddressMapper">
+
+    <!-- 调用数据库的存储过程，添加收货地址
+      jdbc
+      Connection conn;
+      Statment statment = conn.statment();
+      xxxx
+
+      PreparedStatment ps = conn.preparedStatment();
+      xxx
+
+      conn.callableStatment();
+     -->
+    <insert id="insertAddress" statementType="CALLABLE">
+        {call insert_address(#{person}, #{address}, #{phone}, #{uid}, #{isdefault})}
+    </insert>
+</mapper>

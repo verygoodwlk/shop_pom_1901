@@ -99,4 +99,9 @@ public class CartServiceImpl implements ICartService {
 
         return 0;
     }
+
+    @Override
+    public int deleteCartsByUid(Integer uid) {
+        return 0;
+    }
 }

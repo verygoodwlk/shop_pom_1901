@@ -28,3 +28,6 @@ dubbo:
     port: -1
   consumer:
     check: false
+#mybatisplus的映射文件扫描
+mybatis-plus:
+  mapper-locations: classpath:com/qf/dao/mapper/*.xml
