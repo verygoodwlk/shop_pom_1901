@@ -566,7 +566,9 @@
                                 <!-- 后面这两列应该垮n行, 如果是第一行，则显示td，后面的行就无需再显示td了 -->
                                 <td class="dingdan_zongjia" th:if="${orderdetilStatus.first}" th:rowspan="${#arrays.length(order.orderDetils)}" th:text="${#numbers.formatCurrency(order.allprice)}">￥<strong>25.00</strong><br/>(免运费)</td>
                                 <td class="digndan_caozuo" th:if="${orderdetilStatus.first}" th:rowspan="${#arrays.length(order.orderDetils)}" th:switch="${order.status}">
-                                    <a th:case="0">未付款 <a>去付款</a></a>
+                                    <a th:case="0">未付款 <br/>
+                                        <a th:href="|/order/pay?orderid=${order.orderid}|">去付款</a>
+                                    </a>
                                     <a th:case="1">已付款</a>
                                     <a th:case="2">待收货</a>
                                     <a th:case="3">已收货 <a>去评价</a></a>

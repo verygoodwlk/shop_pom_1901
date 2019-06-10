@@ -582,10 +582,11 @@
                     var aid = $("[name='aid'][type='radio']:checked").val();
 
                     $.post("/order/insert", {"aid":aid}, function(data){
-                        if(data == "succ"){
-                            alert("下单成功！");
-                        }
-                    });
+                        //下单的订单的对象
+                        alert("下单成功！");
+                        //用一个新的页面打开支付页面
+                        window.open("/order/pay?orderid=" + data.orderid, "_blank");
+                    }, "json");
                 }
             </script>
 
